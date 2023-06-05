@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="8dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtTite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:ellipsize="marquee"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:text="ggggfggg g g fgfgf f gfd gf gf fg fg fgf gf f f f  f gf g fg fg  gf gf g fg f gf f gf gg fg g g g  g f g g gfg f g g f frrr rt t rt rtrrfgrr r rrt"/>
+
+        <TextView
+            android:id="@+id/txtText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="ggggfggg g g fgfgf f gfd gf gf fg fg fgf gf f f f  f gf g fg fg  gf gf g fg f gf f gf gg fg g g g  g f g g gfg f g g f frrr rt t rt rtrrfgrr r rrt"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
