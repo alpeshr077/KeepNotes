@@ -5,13 +5,12 @@ import Database.RoomDB
 import Entity.NoteEntity
 import android.app.Dialog
 import android.os.Bundle
-import android.provider.ContactsContract.CommonDataKinds.Note
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.alpesh1.keepnotes.databinding.ActivityMainBinding
 import com.alpesh1.keepnotes.databinding.AddDialogBinding
-import com.alpesh1.keepnotes.databinding.UpdateDialogBinding
 import java.text.SimpleDateFormat
+import java.util.ArrayList
 import java.util.Date
 
 class MainActivity : AppCompatActivity() {
@@ -28,12 +27,6 @@ class MainActivity : AppCompatActivity() {
 
         db = RoomDB.init(this)
 
-
-
-        adapter = NotesAdapter() {
-            updateDialog(it)
-
-        }
         initView()
     }
 
@@ -42,10 +35,38 @@ class MainActivity : AppCompatActivity() {
             addNoteDialog()
         }
 
-        adapter = NotesAdapter(db.note().getNotes())
+        adapter = NotesAdapter{
+            var isPin = false
+            if (it.pin){
+                isPin = false
+            }else{
+                isPin = true
+            }
+            var data = NoteEntity(it.title,it.text,it.date,isPin)
+            data.id = it.id
+            db.note().updateNote(data)
+            adapter.update(filterNote(db.note().getNotes()))
+        }
+
+        adapter.setNotes(filterNote(db.note().getNotes()))
         binding.noteList.layoutManager =
-            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
         binding.noteList.adapter = adapter
+    }
+
+    fun filterNote(list: List<NoteEntity>): ArrayList<NoteEntity> {
+        var newList = ArrayList<NoteEntity>()
+        for (l in list){
+            if (l.pin){
+                newList.add(l)
+            }
+        }
+        for (l in list){
+            if (!l.pin){
+                newList.add(l)
+            }
+        }
+        return newList
     }
 
     private fun addNoteDialog() {
@@ -61,34 +82,16 @@ class MainActivity : AppCompatActivity() {
             var format = SimpleDateFormat("DD/MM/YYYY hh:mm:ss a")
             var current = format.format(Date())
 
-            var data = NoteEntity(title, text, current)
+            var data = NoteEntity(title, text, current,false)
             db.note().addNote(data)
 
             bind.edtTitle.setText("")
             bind.edtText.setText("")
 
-            adapter.update(db.note().getNotes())
+            adapter.update(filterNote(db.note().getNotes()))
             dialog.dismiss()
         }
 
         dialog.show()
-    }
-
-    fun updateDialog(noteEntity: NoteEntity) {
-        var dialog = Dialog(this)
-        var bind1 = UpdateDialogBinding.inflate(layoutInflater)
-        dialog.setContentView(bind1.root)
-
-        bind1.edtTitle.setText(noteEntity.title.toString())
-        bind1.edtText.setText(noteEntity.text.toString())
-
-        bind1.btnSubmit.setOnClickListener {
-            var title = bind1.edtTitle.text.toString()
-            var text = bind1.edtTitle.text.toString()
-
-            var modal = NoteEntity(noteEntity, title, text)
-
-
-        }
     }
 }

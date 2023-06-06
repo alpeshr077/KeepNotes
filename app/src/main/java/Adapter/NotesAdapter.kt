@@ -4,22 +4,17 @@ import Entity.NoteEntity
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.View.OnLongClickListener
 import android.view.ViewGroup
-import android.widget.PopupMenu
-import androidx.drawerlayout.R
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.alpesh1.keepnotes.databinding.NoteItemBinding
 
-class NotesAdapter(notes: List<NoteEntity>,update :(NoteEntity) ->Unit,delete :(NoteEntity) ->Unit) : Adapter<NotesAdapter.NotesHolder>() {
+class NotesAdapter(updatePin: (NoteEntity) -> Unit) : Adapter<NotesAdapter.NotesHolder>() {
 
-    var update = update
-    var delete = delete
+    var updatePin = updatePin
+//    lateinit var notes : List<NoteEntity>
 
-    var notes = notes
+    var notes = ArrayList<NoteEntity>()
 
     lateinit var context : Context
 
@@ -46,34 +41,27 @@ class NotesAdapter(notes: List<NoteEntity>,update :(NoteEntity) ->Unit,delete :(
             notes.get(position).apply {
                 txtTite.text = title
                 txtText.text = text
+
+                if (pin){
+                    imgPin.setImageResource(com.alpesh1.keepnotes.R.drawable.pin)
+                }else{
+                    imgPin.setImageResource(com.alpesh1.keepnotes.R.drawable.unpin)
+                }
+
+                imgPin.setOnClickListener {
+                    updatePin.invoke(notes.get(position))
+                }
             }
         }
-
-        holder.itemView.setOnLongClickListener(object : OnLongClickListener{
-            override fun onLongClick(p0: View?): Boolean {
-                var popupMenu = PopupMenu(context,holder.itemView)
-                popupMenu.menuInflater.inflate(com.alpesh1.keepnotes.R.menu.update_menu,popupMenu.menu)
-
-              popupMenu.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener{
-                  override fun onMenuItemClick(p0: MenuItem?): Boolean {
-
-                      if (p0?.itemId == com.alpesh1.keepnotes.R.id.update){
-                          update.invoke(notes.get(position))
-                      }
-
-                     return true
-                  }
-
-              })
-                return true
-            }
-
-        })
 
     }
 
     fun update(notes: List<NoteEntity>) {
-        this.notes = notes
+        this.notes = notes as ArrayList<NoteEntity>
         notifyDataSetChanged()
+    }
+
+    fun setNotes(notes: List<NoteEntity>) {
+        this.notes = notes as ArrayList<NoteEntity>
     }
 }
