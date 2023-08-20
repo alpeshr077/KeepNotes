@@ -1,26 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Note"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:textSize="20dp"
+        android:textStyle="bold"/>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="6dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_date_range_24"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"/>
+
+            <TextView
+                android:id="@+id/edtDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@null"
+                android:hint="Select Date"
+                android:ems="30"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
-        app:cardUseCompatPadding="true"
-        app:cardElevation="6dp">
+        app:cardElevation="6dp"
+        app:cardUseCompatPadding="true">
 
         <EditText
             android:id="@+id/edtTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@null"
             android:layout_margin="10dp"
-            android:hint="Title"/>
-
+            android:background="@null"
+            android:hint="Title"
+            android:ems="30"/>
 
     </androidx.cardview.widget.CardView>
 
@@ -28,27 +69,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
-        app:cardUseCompatPadding="true"
-        app:cardElevation="6dp">
+        app:cardElevation="6dp"
+        app:cardUseCompatPadding="true">
 
         <EditText
             android:id="@+id/edtText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@null"
             android:layout_margin="10dp"
+            android:background="@null"
+            android:gravity="top"
             android:hint="Text............................."
             android:lines="5"
-            android:gravity="top"/>
+            android:ems="30"/>
 
     </androidx.cardview.widget.CardView>
 
-    <Button
+    <TextView
         android:id="@+id/btnSubmit"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
         android:layout_margin="16dp"
-        android:layout_height="wrap_content"
         android:text="Submit"
-        android:layout_gravity="center"/>
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:textColor="@color/white"
+        android:background="@drawable/flottingbutton_design"
+        android:ems="20"/>
 
 </LinearLayout>

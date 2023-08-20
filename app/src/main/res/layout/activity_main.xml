@@ -5,32 +5,68 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#DDDCDC">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:text="KeepNotes"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="10dp"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="#FFA000">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="KeepNotes"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFA000">
+
+            <SearchView
+                android:id="@+id/search"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/searchbar_design"
+                android:layout_margin="10dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/noteList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"/>
+        android:layout_marginTop="130dp"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <LinearLayout
         android:id="@+id/add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/baseline_add_24"
-        android:layout_alignParentBottom="true"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
         android:layout_alignParentRight="true"
-        android:layout_margin="16dp"/>
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/flottingbutton_design"
+        android:gravity="center">
 
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/baseline_add_24" />
+
+    </LinearLayout>
 
 </RelativeLayout>

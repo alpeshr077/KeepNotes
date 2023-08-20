@@ -5,6 +5,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit Note"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:textSize="20dp"
+        android:textStyle="bold"/>
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,7 +27,8 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:layout_margin="10dp"
-            android:hint="Title"/>
+            android:hint="Title"
+            android:ems="30"/>
 
 
     </androidx.cardview.widget.CardView>
@@ -38,16 +48,22 @@
             android:layout_margin="10dp"
             android:hint="Text............................."
             android:lines="5"
-            android:gravity="top"/>
+            android:gravity="top"
+            android:ems="30"/>
 
     </androidx.cardview.widget.CardView>
 
-    <Button
-        android:id="@+id/btnSubmit"
-        android:layout_width="300dp"
+    <TextView
+        android:id="@+id/btnSubmit1"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
         android:layout_margin="16dp"
-        android:layout_height="wrap_content"
         android:text="Submit"
-        android:layout_gravity="center"/>
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:textColor="@color/white"
+        android:background="@drawable/flottingbutton_design"
+        android:ems="20"/>
 
 </LinearLayout>

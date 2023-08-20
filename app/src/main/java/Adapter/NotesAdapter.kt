@@ -4,15 +4,21 @@ import Entity.NoteEntity
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.alpesh1.keepnotes.R
 import com.alpesh1.keepnotes.databinding.NoteItemBinding
 
-class NotesAdapter(updatePin: (NoteEntity) -> Unit) : Adapter<NotesAdapter.NotesHolder>() {
+class NotesAdapter(updatePin: (NoteEntity) -> Unit, update: (NoteEntity) -> Unit, delete: (NoteEntity) -> Unit) : Adapter<NotesAdapter.NotesHolder>() {
 
     var updatePin = updatePin
-//    lateinit var notes : List<NoteEntity>
+
+    var update = update
+    var delete = delete
 
     var notes = ArrayList<NoteEntity>()
 
@@ -41,6 +47,7 @@ class NotesAdapter(updatePin: (NoteEntity) -> Unit) : Adapter<NotesAdapter.Notes
             notes.get(position).apply {
                 txtTite.text = title
                 txtText.text = text
+                txtDate.text = date
 
                 if (pin){
                     imgPin.setImageResource(com.alpesh1.keepnotes.R.drawable.pin)
@@ -53,6 +60,36 @@ class NotesAdapter(updatePin: (NoteEntity) -> Unit) : Adapter<NotesAdapter.Notes
                 }
             }
         }
+
+
+        holder.itemView.setOnLongClickListener(object : View.OnLongClickListener {
+            override fun onLongClick(p0: View?): Boolean {
+
+                var popupMenu = PopupMenu(context, holder.itemView)
+                popupMenu.menuInflater.inflate(com.alpesh1.keepnotes.R.menu.update_menu,popupMenu.menu)
+
+                popupMenu.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener {
+                    override fun onMenuItemClick(p0: MenuItem?): Boolean {
+
+
+                        if (p0?.itemId == R.id.edit){
+                            update.invoke(notes.get(position))
+                        }
+
+                        if (p0?.itemId == R.id.delete){
+                            delete.invoke(notes.get(position))
+                        }
+                        return true
+                    }
+
+                })
+
+                popupMenu.show()
+
+                return false
+            }
+
+        })
 
     }
 
